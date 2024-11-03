@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -23,6 +20,8 @@ public class HelloApplication extends Application {
     Label labelFileLocation;
     @FXML
     RadioButton radioButtonEncrypt, radioButtonDecrypt;
+    @FXML
+    TextField textFieldKey;
 
     String path = "";
 
@@ -35,11 +34,27 @@ public class HelloApplication extends Application {
 
     public void process(ActionEvent actionEvent) {
         if(path != "") {
-            if (radioButtonDecrypt.isSelected()) {
-                System.out.println("1");
-            }
+            String key = textFieldKey.getText();
+
             if (radioButtonEncrypt.isSelected()) {
-                System.out.println("2");
+                Encryptor encryptor = new Encryptor(key, path);
+                encryptor.encryptFile();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText(null); // Optional, you can remove this line if you want a header
+                alert.setContentText("File successfully encrypted");
+                alert.showAndWait();
+            }
+            if (radioButtonDecrypt.isSelected()) {
+                Decryptor decryptor = new Decryptor(key, path);
+                decryptor.decryptFile();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText(null); // Optional, you can remove this line if you want a header
+                alert.setContentText("File successfully decrypted");
+                alert.showAndWait();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -53,7 +68,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setTitle("Hello!");
         stage.setScene(scene);
 

@@ -5,29 +5,31 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
 public class Encryptor {
+    private final byte encryptionKey;
+    private final String path;
 
-    private static final byte ENCRYPTION_KEY = 0x5A;
+    public Encryptor(String encryptionKey, String path) {
+        byte[] key = encryptionKey.getBytes();
+        this.encryptionKey = key[0];
+        this.path = path;
+    }
 
-    private static byte[] encryptDecrypt(byte[] data) {
+
+    private byte[] encryptDecrypt(byte[] data) {
         byte[] result = new byte[data.length];
         for (int i = 0; i < data.length; i++) {
-            result[i] = (byte) (data[i] ^ ENCRYPTION_KEY);
+            result[i] = (byte) (data[i] ^ encryptionKey);
         }
         return result;
     }
 
-    Encryptor(){
-        String filePath = "/Users/syrux/Desktop/Code/enc.pdf";
-        String encryptedFilePath = "/Users/syrux/Desktop/Code/enc.pdf";
-
+    public void encryptFile() {
         try {
-            byte[] fileContent = Files.readAllBytes(Paths.get(filePath));
+            byte[] fileContent = Files.readAllBytes(Paths.get(path));
             byte[] encryptedContent = encryptDecrypt(fileContent);
 
-            // Write encrypted content to a new file
-            Path outputPath = Paths.get(encryptedFilePath);
+            Path outputPath = Paths.get(path);
             Files.write(outputPath, encryptedContent);
 
             System.out.println("File encrypted successfully!");

@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class FileCrypt extends Application {
 
     @FXML
     Button buttonChooseFile, buttonProcess;
@@ -35,25 +35,32 @@ public class HelloApplication extends Application {
     public void process(ActionEvent actionEvent) {
         if(path != "") {
             String key = textFieldKey.getText();
+            if(key != ""){
+                if (radioButtonEncrypt.isSelected()) {
+                    Encryptor encryptor = new Encryptor(key, path);
+                    encryptor.encryptFile();
 
-            if (radioButtonEncrypt.isSelected()) {
-                Encryptor encryptor = new Encryptor(key, path);
-                encryptor.encryptFile();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null); // Optional, you can remove this line if you want a header
+                    alert.setContentText("File successfully encrypted");
+                    alert.showAndWait();
+                }
+                if (radioButtonDecrypt.isSelected()) {
+                    Decryptor decryptor = new Decryptor(key, path);
+                    decryptor.decryptFile();
 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null); // Optional, you can remove this line if you want a header
+                    alert.setContentText("File successfully decrypted");
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid");
                 alert.setHeaderText(null); // Optional, you can remove this line if you want a header
-                alert.setContentText("File successfully encrypted");
-                alert.showAndWait();
-            }
-            if (radioButtonDecrypt.isSelected()) {
-                Decryptor decryptor = new Decryptor(key, path);
-                decryptor.decryptFile();
-
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText(null); // Optional, you can remove this line if you want a header
-                alert.setContentText("File successfully decrypted");
+                alert.setContentText("Please enter key");
                 alert.showAndWait();
             }
         } else {
@@ -67,7 +74,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(FileCrypt.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setTitle("Hello!");
         stage.setScene(scene);

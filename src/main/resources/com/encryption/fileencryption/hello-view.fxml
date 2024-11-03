@@ -10,17 +10,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.encryption.fileencryption.HelloApplication">
+<VBox alignment="CENTER" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #7C93C3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.encryption.fileencryption.HelloApplication">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <Button fx:id="buttonChooseFile" onAction="#chooseFile" text="Choose A File">
+    <Button fx:id="buttonChooseFile" onAction="#chooseFile" prefHeight="37.0" prefWidth="154.0" style="-fx-background-color: #1E2A5E; -fx-background-radius: 10;" text="Choose A File" textFill="#e1d7b7">
       <font>
          <Font size="19.0" />
       </font></Button>
-   <Label fx:id="labelFileLocation" alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="482.0" text="FIle Name" textAlignment="CENTER" wrapText="true">
+   <Label fx:id="labelFileLocation" alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="760.0" text="FIle Name" textAlignment="CENTER" wrapText="true">
       <font>
-         <Font size="13.0" />
+         <Font size="17.0" />
       </font>
    </Label>
    <TextField fx:id="textFieldKey" alignment="CENTER" prefHeight="46.0" prefWidth="760.0" promptText="Key">
@@ -47,7 +47,7 @@
    </HBox>
 
     <Label fx:id="welcomeText" />
-   <Button fx:id="buttonProcess" mnemonicParsing="false" onAction="#process" text="Process">
+   <Button fx:id="buttonProcess" mnemonicParsing="false" onAction="#process" prefHeight="37.0" prefWidth="123.0" style="-fx-background-color: #1E2A5E; -fx-background-radius: 10;" text="Process" textFill="#e1d7b7">
       <font>
          <Font size="19.0" />
       </font>
